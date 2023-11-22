@@ -24,7 +24,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 		try {
 			conn = DriverManager.getConnection(URL, USER, PWD);
 		
-		String sql = "SELECT *, language.name FROM film JOIN language ON language.id = film.language_id WHERE film.id = ?";
+		String sql = "SELECT *, language.name FROM film JOIN language ON language.id = film.language_id JOIN film_list ON film.id = film_list.FID WHERE film.id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 
 		stmt.setInt(1, filmId);
@@ -49,6 +49,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			film.setRating(filmResult.getString("rating"));
 			film.setSpecialFeatures(filmResult.getString("special_features"));
 			film.setLanguage(filmResult.getString("name"));
+			film.setCategory(filmResult.getString("category"));
 			findActorsByFilmId(filmId);
 			System.out.println(film);
 			System.out.println("Actors featured in this film " + findActorsByFilmId(filmId));
@@ -97,7 +98,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 	public List<Film> searchByKeyword(String keyword) throws SQLException {
 			List<Film> films = new ArrayList<>();
 			Connection conn = DriverManager.getConnection(URL, USER, PWD);
-			String sql = "SELECT *, language.name FROM film JOIN language ON language.id = film.language_id WHERE film.title LIKE ? OR film.description LIKE ?";
+			String sql = "SELECT *, language.name, category FROM film JOIN language ON language.id = film.language_id JOIN film_list ON film.id = film_list.FID WHERE film.title LIKE ? OR film.description LIKE ?";
 			PreparedStatement stmt = conn.prepareStatement(sql);
 
 			stmt.setString(1, "%" + keyword + "%");
@@ -120,6 +121,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				film.setRating(filmResult.getString("rating"));
 				film.setSpecialFeatures(filmResult.getString("special_features"));
 				film.setLanguage(filmResult.getString("name"));
+				film.setCategory(filmResult.getString("category"));
 				findActorsByFilmId(filmResult.getInt("id"));
 				System.out.println(film);
 				System.out.println("Actors featured in this film " + findActorsByFilmId(filmResult.getInt("id"))+ "\n");
