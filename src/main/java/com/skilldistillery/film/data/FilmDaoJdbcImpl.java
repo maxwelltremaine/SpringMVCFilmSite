@@ -15,6 +15,16 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 	private static final String URL = "jdbc:mysql://localhost:3306/sdvid?useSSL=false&useLegacyDatetimeCode=false&serverTimezone=US/Mountain";
 	private final static String USER = "student";
 	private final static String PWD = "student";
+	
+	public FilmDaoJdbcImpl() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			System.err.println("Error loading MySQL Driver");
+			throw new RuntimeException("Unable to load MySQL Driver class");
+		}
+	}
 
 
 	@Override
@@ -38,7 +48,6 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			// Here is our mapping of query columns to our object fields:
 			film.setId(filmResult.getInt("id"));
 			film.setTitle(filmResult.getString("title"));
-			;
 			film.setDescription(filmResult.getString("description"));
 			film.setReleaseYear(filmResult.getInt("release_year"));
 			film.setLanguageId(filmResult.getInt("language_id"));
@@ -50,7 +59,7 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			film.setSpecialFeatures(filmResult.getString("special_features"));
 			film.setLanguage(filmResult.getString("name"));
 			film.setCategory(filmResult.getString("category"));
-			findActorsByFilmId(filmId);
+			film.setActors(findActorsByFilmId(filmResult.getInt(filmId)));
 			System.out.println(film);
 			System.out.println("Actors featured in this film " + findActorsByFilmId(filmId));
 			
@@ -122,9 +131,9 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 				film.setSpecialFeatures(filmResult.getString("special_features"));
 				film.setLanguage(filmResult.getString("name"));
 				film.setCategory(filmResult.getString("category"));
-				findActorsByFilmId(filmResult.getInt("id"));
+				film.setActors(findActorsByFilmId(filmResult.getInt("id")));
 				System.out.println(film);
-				System.out.println("Actors featured in this film " + findActorsByFilmId(filmResult.getInt("id"))+ "\n");
+				System.out.println("Actors featured in this film " + film.getActors());
 				films.add(film);
 			}
 

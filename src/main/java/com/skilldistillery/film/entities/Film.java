@@ -1,5 +1,6 @@
 package com.skilldistillery.film.entities;
 
+import java.util.List;
 import java.util.Objects;
 
 
@@ -17,8 +18,17 @@ public class Film {
 	private String specialFeatures;
 	private String language;
 	private String category;
+	private List<Actor> actors;
 
-//	need to decide if this will work before resetting getters and setters
+public List<Actor> getActors() {
+		return actors;
+	}
+
+	public void setActors(List<Actor> actors) {
+		this.actors = actors;
+	}
+
+	//	need to decide if this will work before resetting getters and setters
 	public int getId() {
 		return id;
 	}
@@ -125,7 +135,7 @@ public class Film {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(category, description, id, language, languageId, length, rating, releaseYear,
+		return Objects.hash(actors, category, description, id, language, languageId, length, rating, releaseYear,
 				rentalDuration, rentalRate, replacementCost, specialFeatures, title);
 	}
 
@@ -138,9 +148,10 @@ public class Film {
 		if (getClass() != obj.getClass())
 			return false;
 		Film other = (Film) obj;
-		return Objects.equals(category, other.category) && Objects.equals(description, other.description)
-				&& id == other.id && Objects.equals(language, other.language) && languageId == other.languageId
-				&& length == other.length && Objects.equals(rating, other.rating) && releaseYear == other.releaseYear
+		return Objects.equals(actors, other.actors) && Objects.equals(category, other.category)
+				&& Objects.equals(description, other.description) && id == other.id
+				&& Objects.equals(language, other.language) && languageId == other.languageId && length == other.length
+				&& Objects.equals(rating, other.rating) && releaseYear == other.releaseYear
 				&& rentalDuration == other.rentalDuration
 				&& Double.doubleToLongBits(rentalRate) == Double.doubleToLongBits(other.rentalRate)
 				&& Double.doubleToLongBits(replacementCost) == Double.doubleToLongBits(other.replacementCost)
@@ -149,9 +160,9 @@ public class Film {
 
 	@Override
 	public String toString() {
-		return "Film id: " + id + ", title: " + title + ", description: " + description + "category:  " + category + ", release year: "
+		return "Film id: " + id + ", title: " + title + ", description: " + description + " category:  " + category + ", release year: "
 				+ releaseYear + ", length: " + length + " minutes" + ", rating: " + rating + ", special Features: "
-				+ specialFeatures + ", language: " + language;
+				+ specialFeatures + ", language: " + language + "\nActors in this film:" + actors;
 	}
 
 //		this to string will show collection of actors, show first and last name but not other movies they are in 
