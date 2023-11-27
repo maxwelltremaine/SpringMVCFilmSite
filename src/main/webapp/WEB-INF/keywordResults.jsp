@@ -12,21 +12,9 @@
     <c:when test="${! empty films}">
 	<c:forEach var="film" items="${films}">
 		<ul>
-			<li>film id: ${film.id}</li>
-			<li>film title: ${film.title}</li>
-			<li>film description: ${film.description}</li>
-			<li>film release year: ${film.releaseYear}</li>
-			<li>film language id: ${film.languageId}</li>
-			<li>film rental duration: ${film.rentalDuration}</li>
-			<li>film rental rate: ${film.rentalRate}</li>
-			<li>film length: ${film.length}</li>
-			<li>film replacement cost: ${film.replacementCost}</li>
-			<li>film rating: ${film.rating}</li>
-			<li>film special features: ${film.specialFeatures}</li>
-			<li>film rating: ${film.rating}</li>
-			<li>film language: ${film.language}</li>
-			<li>film category: ${film.category}</li>
-			<li>film actors: ${film.actors}</li>
+			<li><a href= "findByFilmId.do?id=${film.id}">${film.title}</a></li>
+			
+			
 		</ul>
 
 

@@ -59,9 +59,8 @@ public class FilmDaoJdbcImpl implements FilmDAO {
 			film.setSpecialFeatures(filmResult.getString("special_features"));
 			film.setLanguage(filmResult.getString("name"));
 			film.setCategory(filmResult.getString("category"));
-			film.setActors(findActorsByFilmId(filmResult.getInt(filmId)));
+			film.setActors(findActorsByFilmId(filmId));
 			System.out.println(film);
-			System.out.println("Actors featured in this film " + findActorsByFilmId(filmId));
 			
 		}
 		conn.close();

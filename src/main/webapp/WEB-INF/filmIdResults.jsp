@@ -8,30 +8,32 @@
 <title>Film</title>
 </head>
 <body>
-<c:choose>
-    <c:when test="${! empty film}">
-		<ul>
-			<li>film id: ${film.id}</li>
-			<li>film title: ${film.title}</li>
-			<li>film description: ${film.description}</li>
-			<li>film release year: ${film.releaseYear}</li>
-			<li>film language id: ${film.languageId}</li>
-			<li>film rental duration: ${film.rentalDuration}</li>
-			<li>film rental rate: ${film.rentalRate}</li>
-			<li>film length: ${film.length}</li>
-			<li>film replacement cost: ${film.replacementCost}</li>
-			<li>film rating: ${film.rating}</li>
-			<li>film special features: ${film.specialFeatures}</li>
-			<li>film rating: ${film.rating}</li>
-			<li>film language: ${film.language}</li>
-			<li>film category: ${film.category}</li>
-			<li>film actors: ${film.actors}</li>
-		</ul>
+	<c:choose>
+		<c:when test="${! empty film}">
+			<ul>
+				<li>film id: ${film.id}</li>
+				<li>film title: ${film.title}</li>
+				<li>film description: ${film.description}</li>
+				<li>film release year: ${film.releaseYear}</li>
+				<li>film language id: ${film.languageId}</li>
+				<li>film rental duration: ${film.rentalDuration}</li>
+				<li>film rental rate: ${film.rentalRate}</li>
+				<li>film length: ${film.length}</li>
+				<li>film replacement cost: ${film.replacementCost}</li>
+				<li>film rating: ${film.rating}</li>
+				<li>film special features: ${film.specialFeatures}</li>
+				<li>film language: ${film.language}</li>
+				<li>film category: ${film.category}</li>
+				<li>Film actors</li>
+				<c:forEach var="actor" items="${film.actors}">
+					<li>${actor}</li>
+				</c:forEach>
+			</ul>
 		</c:when>
-    <c:otherwise>
-      <p>like zoinks no film here</p>
-    </c:otherwise>
-  </c:choose>
+		<c:otherwise>
+			<p>like zoinks no film here</p>
+		</c:otherwise>
+	</c:choose>
 
 
 
